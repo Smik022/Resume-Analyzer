@@ -13,11 +13,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 from pathlib import Path
-from dotenv import load_dotenv
-load_dotenv()
-
-SECRET_KEY = os.getenv("SECRET_KEY", "change-me-locally")
-DEBUG = os.getenv("DEBUG", "True") == "True"
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
