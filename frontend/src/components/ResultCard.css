@@ -1,0 +1,68 @@
+/* ResultCard.css */
+.report-card {
+  background: linear-gradient(135deg, #1e3c72, #2a5298); /* dark bluish bg */
+  color: #fff;
+  padding: 30px;
+  border-radius: 20px;
+  max-width: 900px;
+  margin: 30px auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.section {
+  margin-bottom: 30px;
+}
+
+.section-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.progress-bar-container {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  overflow: hidden;
+  height: 28px;
+  display: flex;
+  align-items: center;
+}
+
+.progress-bar {
+  background: #00c6ff; /* bright bluish */
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+  font-weight: bold;
+  color: #fff;
+  transition: width 1s ease-in-out;
+  border-radius: 15px 0 0 15px;
+}
+
+/* Suggestions styling */
+.section-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px; /* space between cards */
+}
+
+.suggestion-card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 12px 15px;
+  font-size: 0.95rem;
+  flex: 1 1 45%; /* responsive two-column layout */
+  transition: transform 0.2s, background 0.2s;
+}
+
+.suggestion-card:hover {
+  transform: translateY(-4px);
+  background: rgba(0, 198, 255, 0.15);
+}
+
+.suggestion-card:first-letter {
+  font-weight: 700;
+  color: #00c6ff;
+}

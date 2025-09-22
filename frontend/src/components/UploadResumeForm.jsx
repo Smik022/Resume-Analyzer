@@ -1,58 +1,69 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { uploadResume, analyzeResume } from "../services/api";
+import Loader from "./Loader";
+import ReportCard from "./ResultCard";
+import "./UploadResumeForm.css";
 
 function UploadResumeForm() {
   const [file, setFile] = useState(null);
   const [report, setReport] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [loadingText, setLoadingText] = useState("Preparing upload...");
+
+  const loadingMessages = [
+    "Preparing upload...",
+    "Uploading resume...",
+    "Analyzing sections...",
+    "Fetching skills...",
+    "Generating report...",
+    "Finalizing..."
+  ];
 
   const handleFileChange = (e) => setFile(e.target.files[0]);
 
+  // Dynamic loader text
+  useEffect(() => {
+    if (!loading) return;
+    let i = 0;
+    const interval = setInterval(() => {
+      setLoadingText(loadingMessages[i % loadingMessages.length]);
+      i++;
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [loading]);
+
   const handleUpload = async () => {
     if (!file) return alert("Select a file first");
-
     setLoading(true);
+    setReport(null);
+
     try {
-      // Upload file
       const uploadRes = await uploadResume(file);
-      if (uploadRes.id) {
-        // Analyze uploaded resume
-        const analysis = await analyzeResume(uploadRes.id);
-        setReport(analysis);
-      }
+      const analysis = await analyzeResume(uploadRes.id);
+      setReport(analysis);
     } catch (err) {
       console.error(err);
-      alert("Error uploading or analyzing resume.");
+      alert("Something went wrong!");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div style={{ maxWidth: "800px", margin: "20px auto", fontFamily: "Arial, sans-serif" }}>
-      <h2>Resume Analyzer</h2>
+    <div className="upload-form-container">
+      <h2 className="title">Resume Analyzer</h2>
 
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={handleUpload} disabled={loading} style={{ marginLeft: "10px" }}>
-        {loading ? "Processing..." : "Upload & Analyze"}
-      </button>
+      <div className="upload-controls">
+        <input type="file" onChange={handleFileChange} className="file-input" />
+        <button onClick={handleUpload} className="upload-btn">
+          Upload & Analyze
+        </button>
+      </div>
 
-      {report && (
-        <div style={{ marginTop: "20px", padding: "10px", border: "1px solid #ccc", borderRadius: "5px" }}>
-          <h3>Overall Score: {report.overall_score}</h3>
-          <h4>ATS Score: {report.ats_score}</h4>
+      {loading && <Loader text={loadingText} />}
 
-          <h4>Improvement Suggestions:</h4>
-          {report.improvement_suggestions && Object.entries(report.improvement_suggestions).map(([section, suggestions]) => (
-            <div key={section} style={{ marginBottom: "15px" }}>
-              <strong>{section.charAt(0).toUpperCase() + section.slice(1)}:</strong>
-              <ul>
-                {suggestions.length ? suggestions.map((s, i) => <li key={i}>{s}</li>) : <li>No suggestions</li>}
-              </ul>
-            </div>
-          ))}
-        </div>
-      )}
+      {report && <ReportCard report={report} />}
     </div>
   );
 }

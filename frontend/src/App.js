@@ -1,10 +1,10 @@
 import React from "react";
 import UploadResumeForm from "./components/UploadResumeForm";
-import "./App.css";
+import "./App.css"; // corrected
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <UploadResumeForm />
     </div>
   );

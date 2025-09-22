@@ -1,38 +1,120 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+/* Global styles */
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #0f1b2b, #14233d);
+  color: #fff;
   min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem;
+}
+
+h2, h3 {
+  font-weight: 600;
+}
+
+input[type="file"] {
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: none;
+  background: #1b2a40;
+  color: #fff;
+}
+
+button {
+  padding: 0.7rem 1.5rem;
+  margin-left: 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #3a6ea5;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #2e5580;
+}
+
+.loader-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin-top: 2rem;
 }
 
-.App-link {
-  color: #61dafb;
+.loader {
+  border: 5px solid #1b2a40;
+  border-top: 5px solid #3a6ea5;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loader-text {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #3a6ea5;
+  animation: fadeText 1s linear infinite;
+}
+
+@keyframes fadeText {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.report-card {
+  background: #1b2a40;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 1000px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+.section {
+  margin-bottom: 1.5rem;
+}
+
+.section-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-bottom: 1px solid #3a6ea5;
+  padding-bottom: 0.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.progress-bar-container {
+  background: #0f1b2b;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 20px;
+  width: 100%;
+  margin: 0.5rem 0;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #3a6ea5;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  transition: width 1s ease-in-out;
+}
+
+.section-content p {
+  margin: 0.3rem 0;
+  line-height: 1.4rem;
 }
